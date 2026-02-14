@@ -58,7 +58,7 @@ MongoDB Atlas Account
 Firebase Project (for Cloud Messaging)
 
 Installation
-Clone: git clone https://github.com/your-username/ZenithTrack.git
+Clone: git clone https://github.com/RishabhMalviya/ZenithTrack.git
 
 Install: npm install in both /client and /server.
 
