@@ -96,7 +96,7 @@ ZenithTrack/
 │   │   │   ├── Sidebar.js         # Quest HQ sidebar navigation
 │   │   │   └── Header.js          # Top header with streak & XP
 │   │   ├── context/
-│   │   │   └── AuthContext.js     # React Context for auth state
+│   │   
 │   │   └── lib/
 │   │       └── api.js             # Axios instance + API wrappers
 │   └── package.json
