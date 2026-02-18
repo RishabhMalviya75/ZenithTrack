@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import ConsistencyMatrix from '@/components/ConsistencyMatrix';
+import ConsistencyStats from '@/components/ConsistencyStats';
+import ConsistencyChart from '@/components/ConsistencyChart';
 import axios from 'axios';
 
 export default function ConsistencyPage() {
@@ -28,7 +30,11 @@ export default function ConsistencyPage() {
             setLoading(false);
         } catch (err) {
             console.error('Error fetching logs:', err);
-            setError('Failed to load consistency data. Server might be unreachable.');
+            if (err.response && err.response.status === 401) {
+                setError('Session expired. Please log in again.');
+            } else {
+                setError('Failed to load consistency data. Server might be unreachable.');
+            }
             setLoading(false);
         }
     };
@@ -71,40 +77,110 @@ export default function ConsistencyPage() {
         }
     };
 
+    const downloadCSV = () => {
+        if (!logs.length) return;
+
+        const headers = ['Date', 'Development', 'Career', 'AI_ML', 'Mindset', 'DSA'];
+        const csvRows = [headers.join(',')];
+
+        logs.forEach(log => {
+            const row = [
+                log.date,
+                log.metrics.Development || 'No Tasks',
+                log.metrics.Career || 'No Tasks',
+                log.metrics.AI_ML || 'No Tasks',
+                log.metrics.Mindset || 'No Tasks',
+                log.metrics.DSA || 'No Tasks'
+            ];
+            csvRows.push(row.join(','));
+        });
+
+        const csvContent = "data:text/csv;charset=utf-8," + csvRows.join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "zenith_consistency_logs.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
         <div className="page-content">
-            <header className="mb-8">
-                <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>
-                    Consistency Matrix
-                </h1>
-                <p style={{ color: 'var(--text-secondary)' }}>
-                    Track your daily habits. Consistency is the key to mastery.
-                </p>
-
-                <div className="legend" style={{ display: 'flex', gap: '16px', marginTop: '24px', fontSize: '13px', color: 'var(--text-secondary)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: 'var(--accent-emerald)' }}></div>
-                        Complete
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: 'var(--accent-sunset)' }}></div>
-                        Partial
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: 'var(--accent-rose)' }}></div>
-                        Missed
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}></div>
-                        No Tasks
-                    </div>
+            <header className="mb-8" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                    <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>
+                        Consistency Hub
+                    </h1>
+                    <p style={{ color: 'var(--text-secondary)' }}>
+                        Track, Analyze, and Improve your daily habits.
+                    </p>
                 </div>
+                <button
+                    onClick={downloadCSV}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '10px 16px',
+                        background: 'rgba(255, 107, 53, 0.1)',
+                        color: 'var(--accent-sunset)',
+                        borderRadius: '8px',
+                        fontWeight: '600',
+                        fontSize: '13px',
+                        transition: 'all 0.2s ease',
+                        border: '1px solid rgba(255, 107, 53, 0.2)',
+                        cursor: 'pointer'
+                    }}
+                    onMouseOver={(e) => {
+                        e.currentTarget.style.background = 'var(--accent-sunset)';
+                        e.currentTarget.style.color = '#fff';
+                    }}
+                    onMouseOut={(e) => {
+                        e.currentTarget.style.background = 'rgba(255, 107, 53, 0.1)';
+                        e.currentTarget.style.color = 'var(--accent-sunset)';
+                    }}
+                >
+                    📥 Export Data
+                </button>
             </header>
 
+            {/* Momentum Metadata & Consistency Chart */}
+            {!loading && !error && (
+                <>
+                    <ConsistencyStats logs={logs} />
+                    <ConsistencyChart logs={logs} />
+                </>
+            )}
+
             <div className="glass-card">
+                <div style={{ padding: '20px', borderBottom: '1px solid var(--border-color)', marginBottom: '20px' }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: '700', color: 'var(--text-primary)' }}>
+                        Multi-Domain Matrix
+                    </h3>
+                    <div className="legend" style={{ display: 'flex', gap: '16px', marginTop: '12px', fontSize: '13px', color: 'var(--text-secondary)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: 'var(--accent-emerald)' }}></div>
+                            Complete
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: 'var(--accent-sunset)' }}></div>
+                            Partial
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: 'var(--accent-rose)' }}></div>
+                            Missed
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}></div>
+                            No Tasks
+                        </div>
+                    </div>
+                </div>
+
                 {loading ? (
                     <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>
-                        Loading Matrix...
+                        Loading Hub...
                     </div>
                 ) : error ? (
                     <div style={{ padding: '40px', textAlign: 'center', color: 'var(--accent-rose)' }}>
