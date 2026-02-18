@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth');
 const taskRoutes = require('./routes/tasks');
 const scheduleRoutes = require('./routes/schedule');
 const analyticsRoutes = require('./routes/analytics');
+const consistencyRoutes = require('./routes/consistency');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/schedule', scheduleRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/consistency', consistencyRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

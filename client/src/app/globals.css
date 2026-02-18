@@ -2680,3 +2680,297 @@ html.light .settings-overlay {
 html.light .search-overlay {
   background: rgba(0, 0, 0, 0.25);
 }
+
+/* ========== TEAM / MEET THE DEVELOPER ========== */
+.team-hero {
+  text-align: center;
+  padding: 48px 24px 40px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.team-hero-icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(255, 107, 53, 0.3));
+}
+
+.team-hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  font-weight: 900;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.team-hero-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.team-section-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.team-section-icon {
+  font-size: 20px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.team-card {
+  position: relative;
+  text-align: center;
+  padding: 0 28px 32px;
+  overflow: hidden;
+  transition: all var(--transition-slow);
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--border-active);
+  box-shadow: 0 12px 40px var(--card-glow, rgba(255, 107, 53, 0.15));
+}
+
+.team-card-accent {
+  height: 4px;
+  margin: 0 -28px 28px;
+  opacity: 0.8;
+  transition: opacity var(--transition-base);
+}
+
+.team-card:hover .team-card-accent {
+  opacity: 1;
+}
+
+.team-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.team-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  padding: 3px;
+  background: var(--card-gradient, var(--gradient-primary));
+}
+
+.team-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+}
+
+.team-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.team-avatar-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  filter: blur(28px);
+  opacity: 0.3;
+  z-index: 1;
+  transition: opacity var(--transition-base);
+}
+
+.team-card:hover .team-avatar-glow {
+  opacity: 0.55;
+}
+
+.team-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+
+.team-role {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.team-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.team-skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.team-skill-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-sunset);
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid rgba(255, 107, 53, 0.15);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+}
+
+.team-skill-badge:hover {
+  background: rgba(255, 107, 53, 0.2);
+  border-color: rgba(255, 107, 53, 0.35);
+  transform: translateY(-2px);
+}
+
+.team-social-links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.team-social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  background: rgba(255, 107, 53, 0.06);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-base);
+}
+
+.team-social-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 107, 53, 0.15);
+  border-color: var(--border-glow);
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.2);
+}
+
+/* Mentor Card */
+.team-mentor-card {
+  overflow: hidden;
+  border: 2px dashed rgba(155, 89, 182, 0.3);
+  background: rgba(155, 89, 182, 0.04);
+}
+
+.team-mentor-card:hover {
+  border-color: rgba(155, 89, 182, 0.5);
+  box-shadow: 0 0 30px rgba(155, 89, 182, 0.1);
+}
+
+.team-mentor-inner {
+  text-align: center;
+  padding: 48px 24px;
+  position: relative;
+}
+
+.team-mentor-icon {
+  font-size: 52px;
+  margin-bottom: 16px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.team-mentor-title {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-rare);
+  margin-bottom: 10px;
+}
+
+.team-mentor-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.team-mentor-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(155, 89, 182, 0.05), transparent);
+  animation: mentorShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes mentorShimmer {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+/* Team page responsive */
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-hero-title {
+    font-size: 26px;
+  }
+
+  .team-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .team-avatar-glow {
+    width: 120px;
+    height: 120px;
+  }
+}

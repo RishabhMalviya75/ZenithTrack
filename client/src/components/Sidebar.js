@@ -11,9 +11,11 @@ const navItems = [
     { href: '/tasks', icon: '⚔️', label: 'Quests' },
     { href: '/calendar', icon: '📜', label: 'Quest Log' },
     { href: '/analytics', icon: '📊', label: 'Stats' },
+    { href: '/consistency', icon: '🎯', label: 'Consistency' },
 ];
 
 const bottomItems = [
+    { href: '/team', icon: '👥', label: 'The Guild' },
     { href: '/settings', icon: '🛠', label: 'The Forge' },
 ];
 
