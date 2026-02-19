@@ -12,6 +12,7 @@ const navItems = [
     { href: '/calendar', icon: '📜', label: 'Quest Log' },
     { href: '/analytics', icon: '📊', label: 'Stats' },
     { href: '/consistency', icon: '🎯', label: 'Consistency' },
+    { href: '/workspaces', icon: '🗂️', label: 'Workspaces' },
 ];
 
 const bottomItems = [
